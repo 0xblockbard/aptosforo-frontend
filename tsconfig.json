@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        
+        "jsx": "react-jsx",  // Enable JSX, use "react-jsx" for React 17+
+        "allowJs": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "target": "esnext",
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "typeRoots": ["./node_modules/@types"],
+        "types": ["node", "jquery"],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./resources/assets/js/*"]
+        }
+    },
+    "exclude": ["node_modules", "build", "cache", "artifacts"],
+    "include": ["vite-env.d.ts", "resources/assets/js/**/*.ts", "resources/assets/js/**/*.tsx"]
+
+  }
+  

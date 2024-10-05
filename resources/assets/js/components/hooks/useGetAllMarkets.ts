@@ -4,6 +4,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AccountAddress } from "@aptos-labs/ts-sdk";
 import { MODULE_ADDRESS } from "../../constants";
 
+import { hexToAscii } from "../utils/helpers";
 import { getMetadataAddress } from "../view-functions/get_metadata_address";
 
 export interface Market {
@@ -79,8 +80,8 @@ export function useGetAllMarkets() {
             outcome_token_one_address,
             outcome_token_two_address
 
-            category,
-            tags
+            // category,
+            // tags
           ] = marketRes;
 
           let format_image_url     = image_url.toString();
@@ -132,15 +133,15 @@ export function useGetAllMarkets() {
   return { markets, isLoading, error };
 }
 
-function hexToAscii(hex) {
-  // Remove the "0x" prefix if present
-  const hexString = hex.startsWith('0x') ? hex.slice(2) : hex;
+// function hexToAscii(hex) {
+//   // Remove the "0x" prefix if present
+//   const hexString = hex.startsWith('0x') ? hex.slice(2) : hex;
 
-  // Decode the hex string to ASCII
-  let result = '';
-  for (let i = 0; i < hexString.length; i += 2) {
-    result += String.fromCharCode(parseInt(hexString.substr(i, 2), 16));
-  }
+//   // Decode the hex string to ASCII
+//   let result = '';
+//   for (let i = 0; i < hexString.length; i += 2) {
+//     result += String.fromCharCode(parseInt(hexString.substr(i, 2), 16));
+//   }
 
-  return result;
-}
+//   return result;
+// }

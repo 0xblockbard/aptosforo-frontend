@@ -312,7 +312,7 @@ function MarketList() {
               <div className="mt-10">
                 <div className="flex justify-between">
                   
-                  <button className="buy_outcome_one_button mr-0.5">
+                  <button className="buy_outcome_one_button px-2 py-2 mr-0.5">
                     <span className="mr-1">Buy</span>
                     <span>{market.outcome_one}</span>
                     <svg className="size-4 inline -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -321,7 +321,7 @@ function MarketList() {
                     </svg>        
                   </button>
 
-                  <button className="buy_outcome_two_button ml-0.5">
+                  <button className="buy_outcome_two_button px-2 py-2 ml-0.5">
                     <span className="mr-1">Buy</span>
                     <span>{market.outcome_two}</span>
                     <svg className="size-4 inline -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -359,38 +359,36 @@ if (showAllMarketsDiv) {
 }
 
 
-// function fetchCampaignData(campaign_id): Promise<any> {
+function fetchMarketData(market_id): Promise<any> {
 
-//     // Fetch campaign data using id
-//     return getCampaignInfo({ campaign_id })
-//         .then((campaignInfo) => {
+    // Fetch market data using id
+    return getMarket({ market_id })
+        .then((marketInfo) => {
 
-//             return {
-//                 creator: campaignInfo[0] as string,
-//                 name: campaignInfo[1] as string,
-//                 description: campaignInfo[2] as string,
-//                 image_url: campaignInfo[3] as string,
-//                 funding_type: campaignInfo[4] as number,
-                
-//                 fee: campaignInfo[5],
-//                 funding_goal: campaignInfo[6],
-//                 contributed_amount: campaignInfo[7],
-//                 claimed_amount: campaignInfo[8],
-//                 leftover_amount: campaignInfo[9],
-//                 refunded_amount: campaignInfo[10],
+            return {
+                creator: marketInfo[0] as string,
+                resolved: marketInfo[1],
+                asserted_outcome_id: marketInfo[2] as string,
+                reward: marketInfo[3] as number,
+                required_bond: marketInfo[4] as number,
 
-//                 duration: campaignInfo[11],
-//                 end_timestamp: campaignInfo[12],
+                outcome_one: marketInfo[5] as string,
+                outcome_two: marketInfo[6] as string,
+                description: marketInfo[7] as string,
+                image_url: marketInfo[8] as string,
 
-//                 claimed: campaignInfo[13],
-//                 is_successful: campaignInfo[14],
-//             };
-//         })
-//         .catch((error) => {
-//             console.error('Error fetching campaign data:', error);
-//             throw error;
-//         });
-// }
+                outcome_token_one_metadata: marketInfo[9] as string,
+                outcome_token_two_metadata: marketInfo[10] as string,
+
+                outcome_token_one_address: marketInfo[11] as string,
+                outcome_token_two_address: marketInfo[12] as string,
+            };
+        })
+        .catch((error) => {
+            console.error('Error fetching market data:', error);
+            throw error;
+        });
+}
 
 
 // function getContributorAmount(campaign_id, contributor): Promise<any> {
@@ -409,85 +407,58 @@ if (showAllMarketsDiv) {
 // }
 
 
-// function updateCampaignForm(campaignData: { name: string; description: string; image_url: string }) {
-//     $('.update_campaign_form #name').val(campaignData.name);
-//     $('.update_campaign_form #description').val(campaignData.description);
-//     $('.update_campaign_form #image_url').val(campaignData.image_url);
+// function updateCampaignForm(marketData: { name: string; description: string; image_url: string }) {
+//     $('.update_campaign_form #name').val(marketData.name);
+//     $('.update_campaign_form #description').val(marketData.description);
+//     $('.update_campaign_form #image_url').val(marketData.image_url);
 // }
 
-// function renderCampaignInfo(campaignData: { 
-//     creator: string;
-//     name: string; 
-//     description: string;
-//     image_url: string; 
-//     end_timestamp: number,
-//     funding_type: number,
-//     contributed_amount: number,
-//     funding_goal: number
-// }) {
+function renderMarketInfo(marketData: { 
+    creator: string;
+    name: string; 
+    description: string;
+    image_url: string; 
+    end_timestamp: number,
+    funding_type: number,
+    contributed_amount: number,
+    funding_goal: number
+}) {
 
-//     // const campaign_id = (window as any).campaignId;
-//     const decimals = 8;
+    // const campaign_id = (window as any).campaignId;
+    const decimals = 8;
 
-//     const campaignIdElement = document.getElementById('campaignId');
-//     let campaign_id = Number(campaignIdElement.getAttribute('data-campaign-id')) + 1;
+    const marketIdElement = document.getElementById('marketId');
+    let market_id = Number(marketIdElement.getAttribute('data-market-id')) + 1;
 
-//     $('.single_campaign #count').text("Campaign #" + campaign_id);
-//     $('.single_campaign #creator').text(campaignData.name);
-//     $('.single_campaign #name').text(campaignData.name);
-//     $('.single_campaign #description').text(campaignData.description);
-//     $('.single_campaign #featured_image').attr('src', campaignData.image_url);
+    $('.single_market #name').text(marketData.name);
+    $('.single_market #description').text(marketData.description);
+    $('.single_market #featured_image').attr('src', marketData.image_url);
 
-//     let days_remaining = Math.max(0, Math.round((campaignData.end_timestamp - Date.now() / 1000) / 86400));
-//     if(days_remaining > 0){
-//       $('.single_campaign #days_remaining').text(days_remaining);
-//     } else {
-//       $('.single_campaign_container').text("Completed");
-//     };
-
-//     $('.single_campaign #contributed_amount').text(campaignData.contributed_amount / 10**decimals);
-//     $('.single_campaign #target_amount').text(campaignData.funding_goal / 10**decimals);
-
-//     // percentage raise
-//     let percentage_raised = (campaignData.contributed_amount / campaignData.funding_goal) * 100;
-//     $('.single_campaign #amount_raised_percentage').text(percentage_raised + '%');
-//     $('.single_campaign #progress_bar').css('width', percentage_raised.toFixed(2) + '%');
-
-//     if(campaignData.funding_type == 0){
-//         $('.single_campaign #cf_type').text("Flexible");
-//     } else if (campaignData.funding_type == 1){
-//         $('.single_campaign #cf_type').text("Fixed");
-//     }
-// }
+}
 
 
 
 $(document).ready(function () {
     
     const currentPath       = window.location.pathname;
-    const campaignIdElement = document.getElementById('campaignId');
+    const marketIdElement = document.getElementById('marketId');
     
-    // if (campaignIdElement) {
-    //     let campaign_id = Number(campaignIdElement.getAttribute('data-campaign-id'));
-    //     console.log('campaign_id:', campaign_id);
+    if (marketIdElement) {
+        let market_id = Number(marketIdElement.getAttribute('data-market-id'));
+        console.log('market_id:', market_id);
 
-    //     if (isNaN(campaign_id)) {
-    //         console.error('Invalid campaign ID');
-    //         return;
-    //     }
+        if (isNaN(market_id)) {
+            console.error('Invalid market ID');
+            return;
+        }
 
-    //     if (currentPath.includes("/info")) {
-    //         fetchCampaignData(campaign_id)
-    //             .then((campaignData) => {
-    //                 updateCampaignForm(campaignData);
-    //             });
-    //     } else if (currentPath.includes("/campaigns")) {
-    //         fetchCampaignData(campaign_id)
-    //             .then((campaignData) => {
-    //                 renderCampaignInfo(campaignData);
-    //             });
-    //     }
-    // };
+        if (currentPath.includes("/markets")) {
+            fetchMarketData(market_id)
+                .then((marketData) => {
+                    renderMarketInfo(marketData);
+                });
+        }
+    };
 
 });
 

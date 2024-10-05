@@ -19,8 +19,7 @@ Route::get('/connected', ['uses' => 'PagesController@connected'])->name('connect
 
 Route::get('/start', ['uses' => 'MarketController@create'])->name('create_market');
 Route::get('/markets', ['uses' => 'MarketController@showAll'])->name('show_all_markets');
-Route::get('/markets/{category}', ['uses' => 'MarketController@showAllCategory'])->name('show_all_markets_category');
-Route::get('/markets/{id}', ['uses' => 'MarketController@show'])->name('show_market');
-Route::get('/markets/{id}/info', ['uses' => 'MarketController@edit'])->name('edit_market');
+Route::get('/markets/{id}', ['uses' => 'MarketController@show'])->where('id', '[0-9]+')->name('show_market');
+Route::get('/markets/{category}', ['uses' => 'MarketController@showAllCategory'])->where('category', '[a-zA-Z]+')->name('show_all_markets_category');
 
 Route::get('/faucet', ['uses' => 'MarketController@faucet'])->name('faucet');

@@ -288,7 +288,7 @@ if (CreateMarketSubmitButtonExists) {
 function MarketList() {
   const { markets, isLoading, error } = useGetAllMarkets();
 
-  if (isLoading) return <div></div>;
+  if (isLoading) return <div className="ml-6">Loading markets...</div>;
   if (error) return <div>Error fetching markets</div>;
 
   return (
@@ -302,7 +302,7 @@ function MarketList() {
                   src={market.image_url ? market.image_url : 'https://via.placeholder.com/400x400'}
                   alt={market.description} />
               <h3 className="ml-4 leading-6 text-base font-semibold ">
-                <a href={`/markets/${index}`}>
+                <a href={`/markets/${index}`} className="hover:underline">
                   {market.description}
                 </a>
               </h3>
@@ -315,7 +315,7 @@ function MarketList() {
                   <button className="buy_outcome_one_button px-2 py-2 mr-0.5">
                     <span className="mr-1">Buy</span>
                     <span>{market.outcome_one}</span>
-                    <svg className="size-4 inline -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <svg className="size-4 inline ml-1 -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
                     </svg>        
@@ -324,9 +324,16 @@ function MarketList() {
                   <button className="buy_outcome_two_button px-2 py-2 ml-0.5">
                     <span className="mr-1">Buy</span>
                     <span>{market.outcome_two}</span>
-                    <svg className="size-4 inline -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
-                    </svg>                                                        
+                    {market.outcome_two === "No" ? (
+                      <svg className="size-4 inline ml-1 -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                      </svg>                 
+                    ) : (
+                      <svg className="size-4 inline ml-1 -top-0.5 relative" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
+                      </svg>   
+                    )}                                      
                   </button>
 
                 </div>
@@ -418,10 +425,8 @@ function renderMarketInfo(marketData: {
     name: string; 
     description: string;
     image_url: string; 
-    end_timestamp: number,
-    funding_type: number,
-    contributed_amount: number,
-    funding_goal: number
+    outcome_one: string;
+    outcome_two: string;
 }) {
 
     // const campaign_id = (window as any).campaignId;
@@ -433,6 +438,25 @@ function renderMarketInfo(marketData: {
     $('.single_market #name').text(marketData.name);
     $('.single_market #description').text(marketData.description);
     $('.single_market #featured_image').attr('src', marketData.image_url);
+
+    $('.single_market .outcome_one').text(marketData.outcome_one);
+    $('.single_market .outcome_two').text(marketData.outcome_two);
+
+    // check the value of outcome_two and change the SVG accordingly
+    const svgContainer = document.querySelector('.buy_outcome_two_button svg');
+    
+    if (marketData.outcome_two.toLowerCase() !== 'no') {
+        // if outcome_two is not equal to "no", show up caret
+        svgContainer.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
+        `;
+    } else {
+        // show down caret
+        svgContainer.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+        `;
+    }
 
 }
 

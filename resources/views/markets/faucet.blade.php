@@ -14,9 +14,6 @@
 
                 <h2 id="name" class="inline name text-2xl font-semibold mt-2">Token Faucet</h2>
                 
-                {{-- <p class="text-base mt-4 text-justify">Mint some tokens to interact with our prediction markets.</p>
-                <p class="text-base mt-2 mb-2 text-justify">These tokens will allow you to exchange for outcome tokens in your selected markets.</p> --}}
-
                 <p class="text-base mt-4 text-justify">Easily mint test tokens to begin interacting with our prediction markets on the Aptos testnet.</p>
                 <p class="text-base mt-2 text-justify">These tokens will enable you to participate and exchange for outcome tokens in your favorite markets.</p>
                 <p class="text-base mt-2 text-justify">Make predictions, explore trends, and experiment in a risk-free environment.</p>
@@ -48,7 +45,7 @@
             </div>
 
             <div class="flex w-full sm:w-60p sm:pl-6 pl-20 pt-8">
-                <img id="featured_image" src="https://aptos-blockbard.s3.ap-southeast-2.amazonaws.com/aptosforo/mint-faucet.png" class="featured_image rounded-lg w-full shadow-lg" style="height: 500px">
+                <img id="featured_image" src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728143435/mint-faucet.png" class="featured_image rounded-lg w-full shadow-lg" style="height: 500px">
             </div>
 
         </div>

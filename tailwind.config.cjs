@@ -78,6 +78,7 @@ module.exports = {
                 inter: ["Inter", "sans-serif"],
             },
             fontSize: {
+                'md': ['0.9375rem', '1.375rem'], 
                 12: "0.75rem",
                 14: "0.875rem",
                 16: "1rem",

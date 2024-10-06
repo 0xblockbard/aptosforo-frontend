@@ -7,7 +7,7 @@
             <div class="flex justify-between h-10">
                 <div class="flex w-full">
 
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-4 items-center">
+                    <div class="flex ml-2 sm:ml-6 space-x-6 sm:space-x-4 items-center">
                         
                         <div class="mr-4 font-semibold text-teal-700 uppercase">
                             <span class="inline text-sm">Testnet</span>
@@ -34,7 +34,7 @@
                             Business
                         </a>
 
-                        <a href="{{ route('faucet') }}" class="{{ \Request::route()->getName() == 'faucet' ? ' text-gray-900' : ' text-gray-500 hover:text-gray-700' }} inline-flex items-center px-1 pt-1 text-sm font-medium">
+                        <a href="{{ route('faucet') }}" class="{{ \Request::route()->getName() == 'faucet' ? ' text-gray-900' : ' text-gray-500 hover:text-gray-700' }} hidden sm:inline-flex items-center px-1 pt-1 text-sm font-medium">
                             Science
                         </a>
 
@@ -48,11 +48,11 @@
 
     <div class="flex max-w-full w-full px-6 py-6 mx-auto mt-4">
 
-        <div class="flex flex-col w-full ml-4 mb-10">
+        <div class="flex flex-col w-full sm:ml-4 mb-10">
 
             <div class="w-full mx-auto">
 
-                <div class="grid grid-cols-4 gap-4 px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 py-8">
 
                     <!-- Card 1 -->
                     <div class="market_featured_card bg-gradient-to-r from-blue-700 to-blue-400 rounded-lg shadow-md px-4 py-4 flex justify-between items-start relative overflow-hidden">
@@ -111,7 +111,9 @@
 
 
             <div class="w-full mx-auto">
-                <div id="show_all_markets"></div>
+                <div id="show_all_markets">
+
+                </div>
             </div>
 
                 {{-- <div class="w-full mx-auto">

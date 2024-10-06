@@ -44,11 +44,28 @@
 <script src="{{ vite_asset("resources/assets/js/app.tsx") }}" defer></script>
 
 <script>
-    
-    // Listen for the 'walletConnected' event
+
+    // listen for the 'walletConnected' event (optional if you want to show it dynamically)
     window.addEventListener('walletConnected', (event) => {
         const { connected } = event.detail;
         location.href="/connected"
+    });
+
+    // listen for the 'walletDisconnected' event
+    window.addEventListener('walletDisconnected', (event) => {
+        $('.nav_create_market_button').addClass('invisible').removeClass('visible');
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let connected = localStorage.getItem("connected");
+
+        if(connected === "true") {
+            // show nav button smoothly after DOM is ready
+            $('.nav_create_market_button').addClass('visible').removeClass('invisible');
+        } else {
+            // hide nav button smoothly after DOM is ready
+            $('.nav_create_market_button').addClass('invisible').removeClass('visible');
+        }
     });
 
 </script>

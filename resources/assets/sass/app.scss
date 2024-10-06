@@ -142,3 +142,9 @@
     color: #ffffff;
   }
 }
+
+.submit_button{
+  
+  @apply w-full text-sm rounded-md font-semibold transition duration-300 tracking-wider bg-teal-600 text-white hover:bg-teal-700;
+  
+}

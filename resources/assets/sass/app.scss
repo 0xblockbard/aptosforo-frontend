@@ -119,32 +119,29 @@
 
 .buy_outcome_one_button{
   
-  @apply w-full text-sm rounded-md font-semibold transition duration-300;
+  @apply w-full text-sm rounded-md font-semibold transition duration-300 ;
   
-  background-color: #eef6f0;
-  color: #55ac68;
-
-  &:hover{
-    background-color: #55ac68;
-    color: #eaf5ed;
-  }
 }
 
 .buy_outcome_two_button{
   
   @apply w-full text-sm rounded-md font-semibold transition duration-300;
-  
-  background-color: #fbefee;
-  color: #d55425;
-
-  &:hover{
-    background-color: #d55425;
-    color: #ffffff;
-  }
 }
 
 .submit_button{
   
   @apply w-full text-sm rounded-md font-semibold transition duration-300 tracking-wider bg-teal-600 text-white hover:bg-teal-700;
   
+}
+
+
+/* Hide scrollbar for all webkit-based browsers (Chrome, Safari) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for other browsers (Firefox, Edge) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

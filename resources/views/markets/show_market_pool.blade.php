@@ -38,22 +38,17 @@
 
             <div class="flex flex-col market_actions_container w-full sm:w-1/3 sm:px-6 py-2 ">
 
-                <div id="market_actions_card" class="market_actions_card rounded-md shadow-lg border border-gray-300 px-6 pt-4 pb-6" data-market-id="{{ $id }}">  
+                {{-- <div id="market_actions_card" class="market_actions_card rounded-md shadow-lg border border-gray-300 px-6 pt-4 pb-6" data-market-id="{{ $id }}">  
 
                     <div class="market_actions_form">
 
                         <div class="flex flex-row mt-2 justify-between border-b pt-2 mb-4 border-gray-200"> 
                             <div class="flex space-x-4 text-sm">
                                 <div class="buy font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Buy</div>
-                                <div class="sell hover:cursor-pointer pb-4 transition duration-150 ease-in-out hover">Sell</div>
+                                <div class="sell hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Sell</div>
                             </div>
                             <div class="flex text-sm">
                                 <div class="amm uppercase text-teal-600 font-semibold mr-4 pb-4">AMM</div>
-                                <div class="liquidity mr-4 pb-4 ">
-                                    <a href="{{ route('show_market_pool', $id)}}">
-                                        Liquidity
-                                    </a>
-                                </div>
                             </div>
                         </div>
 
@@ -83,24 +78,43 @@
                     
                     </div>
 
-                </div>
+                </div> --}}
 
-                {{-- <div id="market_pool_actions_card" class="market_pool_actions_card rounded-md shadow-lg border border-gray-300 mt-8 px-6 pt-4 pb-6" data-market-id="{{ $id }}">  
+                <div id="market_actions_card" class="market_actions_card rounded-md shadow-lg border border-gray-300 px-6 pt-4 pb-6" data-market-id="{{ $id }}">  
 
                     <div class="market_pool_actions_form">
 
                         <div class="flex flex-row mt-2 justify-between border-b pt-2 mb-4 border-gray-200"> 
-                            <div class="flex space-x-4 text-sm">
-                                <div class="deposit font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Deposit</div>
-                                <div class="withdraw hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Withdraw</div>
+                            <div class="flex space-x-2 text-sm">
+                                {{-- <div class="deposit font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Deposit</div>
+                                <div class="withdraw hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Withdraw</div> --}}
+                                <div class="pool_action font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Action</div>
                                 <div class="redeem hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Redeem</div>
                             </div>
                             <div class="flex text-sm">
-                                <div class="amm text-teal-600 font-semibold mr-4 pb-4">Liquidity</div>
+                                <div class="amm uppercase  mr-4 pb-4">
+                                    <a href="{{ route('show_market', $id)}}">
+                                        AMM
+                                    </a>
+                                </div>
+                                <div class="liquidity text-teal-600 font-semibold mr-4 pb-4">Liquidity</div>
                             </div>
                         </div>
 
                         @include('partials.flash_messages')
+
+                        <h3 class="text-md font-medium font-roboto mt-4 mb-2">Action</h3>
+                        <div class="flex justify-between">
+
+                            <div id="selected_action_type" class="hidden selected_type" data-selected-action-type="deposit"></div>
+                            
+                            <button class="buy_outcome_one_button px-2 py-4  mr-1 bg-emerald-50 text-emerald-500 hover:bg-emerald-500 hover:text-emerald-900">
+                                <span class="deposit">Deposit</span>
+                            </button>
+                            <button class="buy_outcome_two_button px-2 py-4 ml-1 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-rose-900">
+                                <span class="withdraw">Withdraw</span>
+                            </button>
+                        </div>
 
                         <div class="flex flex-col mt-4">
                             <div id="selected_pool_action_type" class="hidden selected_pool_action_type" data-selected-action-type="deposit"></div>
@@ -111,7 +125,7 @@
                     
                     </div>
 
-                </div> --}}
+                </div>
 
             </div>
 

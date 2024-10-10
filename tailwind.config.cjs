@@ -53,6 +53,22 @@ module.exports = {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
+
+                emerald: {
+                    50: '#eef6f0',   // Light green background (#eef6f0)
+                    500: '#55ac68',  // Green text color and hover background (#55ac68)
+                    600: '#4d9a60',  // Slightly darker green (optional)
+                    700: '#458a58',  // Even darker green (optional)
+                    800: '#3d7b50',  // Darkest green (optional)
+                    900: '#eaf5ed',  // Light green text on hover (#eaf5ed)
+                },
+
+                rose: {
+                    50: '#fbefee',   // Light red background (#fbefee)
+                    500: '#d55425',  // Red text color and hover background (#d55425)
+                    900: '#ffffff',  // White text on hover (#ffffff)
+                  },
+
             },
             borderRadius: {
                 lg: "var(--radius)",
@@ -132,7 +148,13 @@ module.exports = {
                 '70p': '70%',
                 '80p': '80%',
                 '90p': '90%'
-            }
+            },
+            fontFamily: {
+                sans: ['Open Sans', 'sans-serif'],   
+                poppins: ['Poppins', 'sans-serif'],   
+                roboto: ['Roboto Slab', 'sans-serif'],  
+                merriweather: ['Merriweather', 'serif'],
+            },
         },
     },
     plugins: [

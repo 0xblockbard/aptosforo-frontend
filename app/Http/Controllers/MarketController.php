@@ -33,6 +33,14 @@ class MarketController extends Controller
         }
     }
 
+    public function showPool($id){
+        try {
+            return view('markets.show_market_pool', compact('id'));
+        } catch(\Exception $e){
+            abort(400);
+        }
+    }
+
     public function create(){
         try {
             return view('markets.create_market');

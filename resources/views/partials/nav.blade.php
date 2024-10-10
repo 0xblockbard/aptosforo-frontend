@@ -31,7 +31,7 @@
         <div class="ml-6 flex items-center">
 
             <a href="{{ route('create_market') }}" class="mr-4">
-                <button type="button" class="nav_create_market_button invisible items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                <button type="button" class="nav_create_market_button invisible items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-300">
                     Create Market
                 </button>
             </a>

@@ -12,7 +12,7 @@
                 <span class="w-20 border-2 teal-teal-600 mt-2"></span>
 {{--                <h3 class="text-md mt-2 italic">Raise funds for your projects on our decentralised opensource platform powered by the Aptos blockchain</h3>--}}
 {{--                <h3 class="text-md mt-2 italic">Make the Aptos community stronger as an early adopter supporting innovative creators and unique projects.</h3>--}}
-                <h3 class="text-md mt-2 font-semibold italic">Simple Prediction Market on Aptos</h3>
+                <h3 class="text-md mt-2 font-semibold italic">Prediction Market on Aptos</h3>
 
                 
                 {{-- <p class="text-base mt-4">Leverage our optimistic oracles to make accurate predictions and resolve outcomes with community consensus.</p> --}}

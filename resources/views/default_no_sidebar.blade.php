@@ -34,7 +34,7 @@
 
 @include('partials.nav')
 
-<div id="app" class="app flex flex-grow min-h-screen mt-14 dark:bg-black z-10">
+<div id="app" class="app flex flex-col flex-grow min-h-screen mt-14 z-10">
 
     @yield('content')
 

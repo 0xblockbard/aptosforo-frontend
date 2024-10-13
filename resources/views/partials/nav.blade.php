@@ -12,16 +12,20 @@
 
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
 
-                    <a href="{{ route('show_all_markets') }}" class="{{ \Request::route()->getName() == 'show_all_markets' ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                    <a href="{{ route('about') }}" class="{{ \Request::route()->getName() == 'about' ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-teal-600 hover:text-teal-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        About
+                    </a>
+
+                    <a href="{{ route('show_all_markets') }}" class="{{ (\Request::route()->getName() == 'show_all_markets' or \Request::route()->getName() == 'home') ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-teal-600 hover:text-teal-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                         Markets
                     </a>
 
-                    <a href="{{ route('faucet') }}" class="{{ \Request::route()->getName() == 'faucet' ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                    <a href="{{ route('faucet') }}" class="{{ \Request::route()->getName() == 'faucet' ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-teal-600 hover:text-teal-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                         Faucet
-                    </a>
+                    </a> 
 
-                    <a href="{{ route('about') }}" class="{{ \Request::route()->getName() == 'about' ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        About
+                    <a href="{{ route('guide') }}" class="{{ \Request::route()->getName() == 'guide' ? 'border-teal-500 text-teal-700' : 'border-transparent text-gray-500 hover:border-teal-600 hover:text-teal-700' }} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Guide
                     </a>
                     
                 </div>

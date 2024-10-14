@@ -6,10 +6,10 @@ export type getMarketArguments = {
   market_id: number;
 };
 
-export const getMarket = async (args: getMarketArguments): Promise<[string, boolean, string, number, number, string, string, string, string, string, string, string, string]> => {
+export const getMarket = async (args: getMarketArguments): Promise<[string, boolean, string, number, number, string, string, string, string, string, number, string, string, string, string]> => {
     const { market_id } = args;
     
-    const marketInfo = await aptosClient().view<[string, boolean, string, number, number, string, string, string, string, string, string, string, string]>({
+    const marketInfo = await aptosClient().view<[string, boolean, string, number, number, string, string, string, string, string, number, string, string, string, string]>({
         payload: {
             function: `${MODULE_ADDRESS}::prediction_market::get_market`,
             typeArguments: [],
@@ -27,9 +27,14 @@ export const getMarket = async (args: getMarketArguments): Promise<[string, bool
         outcomeOneHex,
         outcomeTwoHex,
         descriptionHex,    
-        imageUrlHex,       
+        imageUrlHex, 
+
+        categoriesHex,
+        startTimestamp,
+
         outcomeTokenOneMetadata,
         outcomeTokenTwoMetadata,
+        
         outcomeTokenOneAddress,
         outcomeTokenTwoAddress,
     ] = marketInfo;
@@ -40,6 +45,7 @@ export const getMarket = async (args: getMarketArguments): Promise<[string, bool
     const outcomeTwo         = hexToAscii(outcomeTwoHex);
     const description        = hexToAscii(descriptionHex);
     const imageUrl           = hexToAscii(imageUrlHex);
+    const categories         = hexToAscii(categoriesHex);
 
     return [
         creator,
@@ -51,6 +57,8 @@ export const getMarket = async (args: getMarketArguments): Promise<[string, bool
         outcomeTwo,
         description,
         imageUrl,
+        categories,
+        startTimestamp,
         outcomeTokenOneMetadata,
         outcomeTokenTwoMetadata,
         outcomeTokenOneAddress,
@@ -69,6 +77,8 @@ export const getMarket = async (args: getMarketArguments): Promise<[string, bool
 //     market.outcome_two,
 //     market.description,
 //     market.image_url,
+//     market.categories,
+//     market.start_timestamp,
 //     market.outcome_token_one_metadata,
 //     market.outcome_token_two_metadata,
 //     market.outcome_token_one_address,

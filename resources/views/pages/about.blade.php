@@ -4,7 +4,7 @@
 
     <div class="bg-white overflow-hidden w-full">
         <div class="relative max-w-7xl mx-auto py-8 sm:py-16 px-12 sm:px-6 lg:px-8">
-            <div class="hidden lg:block bg-gray-50 absolute top-0 bottom-0 left-3/4 w-screen"></div>
+            <div class="hidden lg:block bg-teal-50 absolute top-0 bottom-0 left-3/4 w-screen"></div>
             <div class="mx-auto text-base max-w-prose lg:grid lg:grid-cols-2 lg:gap-8 lg:max-w-none">
                 <div>
                     <h2 class="text-base text-gray-700 font-semibold tracking-wide uppercase">0xBlockBard</h2>
@@ -41,7 +41,27 @@
 
                     <div class="mt-5 prose prose-teal text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1 text-justify pr-5 space-y-6">
                         
-                        <p>AptosForo</p>
+                        <p><strong>AptosForo</strong> (derived from "Aptos" and "Foro," Latin for "market") is an innovative prediction market that lets you trade on a diverse range of highly debated topics, from current events and politics to cryptocurrency trends.</p>
+
+                        <p>As prediction markets gain popularity, they appeal to individuals who seek to leverage their insights and capitalize on their understanding of future events.</p>
+
+                        <p>By transforming forecasts into tradable assets, these markets allow users to profit from their predictions while also creating a collective intelligence that offers valuable insights into the likelihood of various outcomes.</p>
+
+                        <p>With platforms like Polymarket on Polygon leading the way, prediction markets have become an exciting intersection of finance, technology, and social sentiment.</p>
+
+                        <p>Inspired by this trend, <strong>AptosForo</strong> allows users to leverage their knowledge and insights on the future to build a dynamic portfolio. By buying shares in various markets, one can turn their predictions into potential profits.</p>
+
+                        <p>At the core of our Minimum Viable Product (MVP) is a robust Optimistic Oracle, built on UMA Protocol's design and adapted for the Aptos Move language, which secures market resolution with economic guarantees and bonds.</p>
+
+                        <p>Unlike conventional oracles limited to price feeds, UMA Protocol's Optimistic Oracle can validate a broad range of on-chain data, supporting AptosForo’s mission to enable secure, decentralized predictions.</p>
+
+                        <p>Integrated with a Full Policy Escalation Manager and Automated Market Maker, <strong>AptosForo</strong> provides a seamless trading experience and reliable data verification, empowering users to engage confidently in predictive markets on Aptos.</p>
+
+                        <p class="font-semibold italic">By 0xBlockBard</p>
+
+                        <p><span class="font-semibold">Twitter / X:</span> <a class="text-teal-600 hover:underline hover:text-teal-700" target="_blank" href="https://x.com/0xblockbard">https://x.com/0xblockbard</a></p>
+
+                        <p><span class="font-semibold">Substack Newsletter:</span> <a class="text-teal-600  hover:underline hover:text-teal-700" target="_blank" href="https://www.0xblockbard.com/">https://www.0xblockbard.com</a></p>
 
                     </div>
                 </div>
@@ -55,7 +75,7 @@
 
 @section('scripts')
 
-    <script src="https://aptos-blockbard.s3.ap-southeast-2.amazonaws.com/assets/js/scrollToFixed.js"></script>
+    {{-- <script src="https://aptos-blockbard.s3.ap-southeast-2.amazonaws.com/assets/js/scrollToFixed.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -76,6 +96,6 @@
                 handleScrollToFixed();
             });
         });
-    </script>
+    </script> --}}
 
 @endsection

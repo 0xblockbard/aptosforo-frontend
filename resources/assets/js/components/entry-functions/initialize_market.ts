@@ -11,10 +11,11 @@ export type initializeMarketArguments = {
     image_url: string;
     reward: number;
     bond: number;
+    categories: string; 
 };
 
 export const initializeMarket = (args: initializeMarketArguments): InputTransactionData => {
-  const { outcome_one, outcome_two, description, image_url, reward, bond } = args;
+  const { outcome_one, outcome_two, description, image_url, reward, bond, categories } = args;
   return {
     data: {
         function: `${MODULE_ADDRESS}::prediction_market::initialize_market`,
@@ -25,7 +26,8 @@ export const initializeMarket = (args: initializeMarketArguments): InputTransact
             description,
             image_url,
             reward,
-            bond
+            bond,
+            categories
         ],
     },
   };

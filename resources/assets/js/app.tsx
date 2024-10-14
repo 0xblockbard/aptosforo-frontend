@@ -427,11 +427,14 @@ async function fetchMarketData(market_id): Promise<any> {
           description: marketInfo[7] as string,
           image_url: marketInfo[8] as string,
 
-          outcome_token_one_metadata: marketInfo[9] as string,
-          outcome_token_two_metadata: marketInfo[10] as string,
+          categories: marketInfo[9] as string,
+          start_timestamp: marketInfo[10] as number,
 
-          outcome_token_one_address: marketInfo[11] as string,
-          outcome_token_two_address: marketInfo[12] as string,
+          outcome_token_one_metadata: marketInfo[11] as string,
+          outcome_token_two_metadata: marketInfo[12] as string,
+
+          outcome_token_one_address: marketInfo[13] as string,
+          outcome_token_two_address: marketInfo[14] as string,
 
           ...poolData,
 

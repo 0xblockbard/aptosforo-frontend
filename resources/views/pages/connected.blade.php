@@ -20,8 +20,8 @@
                         <div class="flex flex-col rounded-md shadow-md border border-teal-700 px-8 py-6 hover:shadow-xl shadow-teal-700 hover:border-teal-500 transition duration-300 ease-in-out hover:scale-[1.05] hover:cursor-pointer hover:border-2"> 
                             <h2 class="font-roboto font-bold text-xl text-center">Explore Markets</h2>
                             <div class="w-20 border border-teal-700 mt-1 mb-4 mx-auto"></div>
-                            <img class="rounded-sm shadow-md border border-teal-500 shadow-teal-700" src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728153489/explore-campaigns-1.png" />
-                            <p class="font-merriweather mt-6 sm:px-6 text-center text-sm font-medium">Look for a market you're interested in</p>
+                            <img class="rounded-sm shadow-md border border-teal-500 shadow-teal-700" src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728904505/aptosforo-concept-1_muhrd7.png" />
+                            <p class="font-merriweather mt-6 sm:px-6 text-center text-sm font-medium">Look for a market you're interested in and bet on outcomes</p>
                             <button class="mt-6 mb-2 text-sm leading-4 font-medium mx-auto py-2 px-4 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-300 font-sans">Explore</button>
                         </div>
                     </a>
@@ -31,7 +31,7 @@
                             <h2 class="font-roboto font-bold text-xl text-center">Faucet</h2>
                             <div class="w-14 border border-teal-700 mt-1 mb-4 mx-auto"></div>
                             <img class="rounded-sm shadow-md border border-teal-500 shadow-teal-700" src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1727955244/mint-faucet-square.png" />
-                            <p class="font-merriweather  mt-6 text-center text-sm font-medium">Mint tokens to interact and experiment with our prediction market</p>
+                            <p class="font-merriweather  mt-6 text-center text-sm font-medium">Mint tokens to interact and experiment with prediction markets</p>
                             <button class="mt-6 mb-2 text-sm leading-4 font-medium mx-auto py-2 px-4 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-300 font-sans">Mint Tokens</button>
                         </div>
                     </a>
@@ -40,7 +40,7 @@
                         <div class="flex flex-col rounded-md shadow-md border border-teal-700 px-8 py-6 hover:shadow-xl shadow-teal-700 hover:border-teal-500 transition duration-300ease-in-out hover:scale-[1.05] hover:cursor-pointer hover:border-2"> 
                             <h2 class="font-roboto font-bold text-xl text-center">Learn More</h2>
                             <div class="w-14 border border-teal-700 mt-1 mb-4 mx-auto"></div>
-                            <img class="rounded-sm shadow-md border border-teal-500 shadow-teal-700 " src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728154002/learn-more.png" />
+                            <img class="rounded-sm shadow-md border border-teal-500 shadow-teal-700 " src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728906843/guide-concept-1_j1i46a.png" />
                             <p class="font-merriweather mt-6 sm:px-4 text-center text-sm font-medium">Read more about our prediction market and how they work</p>
                             <button class="mt-6 mb-2 text-sm leading-4 font-medium mx-auto py-2 px-4 bg-teal-600 text-white rounded-md hover:bg-teal-500 transition duration-300 font-sans">Learn More</button>
                         </div>

@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <div class="flex w-full py-24 shadow-md" style="background-image: url('https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728199591/header-5.png'); background-size: cover; background-position: center;">
+    <div class="flex w-full py-24 shadow-md" style="background-image: url('https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728907448/header-2_dow9zh.png'); background-size: cover; background-position: center;">
         <div class="max-w-7xl">
             <div class="flex flex-col ml-40 bg-white opacity-90 px-12 py-4 rounded-md"> 
-                <h3 class="text-3xl text-teal-600 font-extrabold">Guide</h3>
-                <span class="w-14 border-2 border-teal-600 mt-1"></span>
+                <h3 class="text-3xl text-teal-600 font-extrabold">Guide: AptosForo Full Process Flow</h3>
+                <span class="w-24 border-2 border-teal-600 mt-1"></span>
             </div>
         </div>
     </div>
@@ -19,39 +19,40 @@
                 
                 <div class="mt-2 px-10 py-6 text-gray-600 space-y-6">
 
-                    <h2 class="font-semibold text-2xl">Overview of AptosForo</h2>
+                    <h2 class="font-semibold text-2xl">AptosForo Full Process Flow</h2>
                     
-                    <p><span class="font-semibold text-teal-600">AptosForo</span> is built upon the crowdfunding models outlined in <a class="text-teal-600 hover:underline" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2447567" target="_blank">Schwienbacher's (2000) research</a> on Keep-It-All and All-Or-Nothing strategies.</p>
+                    <p>Currently, on the Aptos Testnet, any user will be able to initialize a new market for a given scenario with binary outcomes (e.g., Yes / No) and provide a reward as an incentive for users to assert a truthful market resolution.</p>
 
-                    <p>By incorporating these foundational models, AptosCrowd offers project creators the flexibility to choose the approach that best aligns with their project's needs and goals.</p>
+                    <p>Then, the user can initialize a liquidity pool for the newly created market, providing initial liquidity that meets or exceeds the minimum requirement. This liquidity is split evenly between both outcomes, and the user will receive corresponding LP tokens (representing half of the total liquidity provided, with each LP token equating to one share of both outcomes).</p>
 
-                    <h3 class="font-semibold text-lg">Flexible (Keep-It-All - KIA) Model</h3>
+                    <p>On the Aptos Testnet, we primarily use a standard fungible asset token as the Oracle Token on <strong>AptosForo</strong>, functioning as the main currency and liquidity token. Users can mint Oracle Tokens via our faucet to interact with the sample markets created. Should we deploy on the Mainnet in the future, the main currency token could be a USDT-equivalent fungible asset, with the Oracle Token designated for market assertions and resolutions.</p>
 
-                    <p>In the Flexible Model, project owners have the ability to claim funds at any point during the campaign, regardless of whether the funding goal has been met. Supporters should note that all contributions are final, with no option for refunds.</p>
+                    <p>With the liquidity pool in place, other users can freely buy or sell outcome tokens from it. For each swap, a small fee (e.g., 0.2%, equivalent to Polymarket’s fee) is charged, which serves as an incentive for liquidity providers.</p>
 
-                    <p>This model is ideal for small and scalable projects where any amount of funding can contribute to progress and help move the project forward.</p>
+                    <p>Unlike the traditional CPMM, which follows the x * y = k formula, our modified AMM adopts a ratio formula to ensure that the total price always equals 1, regardless of demand or supply fluctuations for either outcome token. For instance, the price of an outcome token is determined by its corresponding reserve amount against the total reserves in the liquidity pool.</p>
 
-                    <h3 class="font-semibold text-lg">Fixed (All-Or-Nothing - AON) Model</h3>
+                    <p>This differs from Polymarket, which has recently moved away from AMM DEXs and is now operating through an order book model with market and limit orders.</p>
 
-                    <p>In the Fixed Model, project owners can only claim the funds if the target goal is reached by the campaign's end date. If the project fails to meet its funding goal, supporters have the option to claim a refund.</p>
+                    <p>A user can also deposit collateral into the liquidity pool and receive LP tokens, which they can later redeem for outcome tokens. Similarly, they can withdraw collateral by returning LP tokens, which will then be burned.</p>
 
-                    <p>This approach is best suited for large and non-scalable projects that require a minimum amount of funding to proceed effectively.</p>
+                    <p>When LP tokens are redeemed, they are exchanged for outcome tokens at the current pool ratio. For instance, with a 70:30 ratio between the two outcomes, the user will receive outcome tokens reflecting that ratio.</p>
 
-                    <h3 class="font-semibold text-lg">Both Models</h3>
+                    <p>For market resolutions, <strong>AptosForo</strong> uses a modified Full Policy Escalation Manager from UMA Protocol, adapted for Aptos Move, allowing for whitelisting of asserters and disputers if required. This ensures controlled access to market assertions and disputes, reducing frivolous or malicious activities. If necessary, we can also pause all assertion activities on the market.</p>
 
-                    <p>For both models, AptosCrowd allows overfunding beyond the target amount, which will support creators more if their campaigns are wildly successful. Campaign durations can be designed to be between 3 and 45 days, ensuring a timely funding cycle that keeps momentum and engagement high.</p>
+                    <p>To resolve a market, users post a bond with their asserted outcome. This assertion remains open for a liveness period (e.g., 2 hours), during which other users may dispute it. At any one time, there can only be one asserter or disputer for a market.</p>
 
-                    <p>By providing these options, AptosCrowd enables project owners to select the crowdfunding model that most effectively supports their objectives, whether they need flexible funding to get started or require a full budget to bring their vision to life.</p>
+                    <p>If no dispute arises, the market settles at the end of the liveness period, with the asserted outcome recognized as true. Any existing market reward will also be awarded to the asserter at this time.</p>
 
-                    <h3 class="font-semibold text-lg">Demo MVP</h3>
+                    <p>However, in the case of a dispute, the escalation manager steps in to resolve the conflict. Here, the admin will be able to set an arbitration resolution for the disputed assertion. We have also modified the UMA Escalation Manager smart contract to allow for overrides on the arbitration resolution to facilitate testing on Aptos Testnet.</p>
 
-                    <p>The <span class="font-semibold text-teal-600">AptosCrowd</span> demo is deployed on the Aptos Testnet and showcases sample crowdfunding campaigns using both the KIA and AON models.</p>
+                    <p>The winner of the dispute (whether asserter or disputer) recoups their bond and claims half of the opposing party's bond (less fees) as an incentive. For potential high-activity markets, the bond requirement may be set higher to deter frivolous or malicious assertions.</p>
 
-                    <p>Users can explore these sample campaigns with detailed descriptions, images, funding goals, and deadlines to get a feel for how the live site will operate.</p>
+                    <p>Should a market be disputed successfully in favor of the disputer, the market’s asserted outcome resets, allowing another user to make a new assertion.</p>
 
-                    <p>In addition, users can experiment by starting new crowdfunding campaigns of their own, allowing them to experience the platform's features firsthand and what it will be like to raise funds for their project. They can also pledge support with APT tokens to live campaigns, with contributions updating the campaign's progress in real time.</p>
+                    <p>After a market has been resolved, trading on the market’s liquidity pool ceases. Users cannot buy, sell, deposit, or withdraw liquidity from the pool, though they can still redeem LP tokens for outcome tokens. The redeemed amount will be calculated proportionally based on the total LP Token supply and ratio of outcome token reserves.</p>
 
-                    <p>This interactive demo provides a comprehensive preview of the AptosCrowd platform, highlighting our user-friendly interface and seamless integration of blockchain technology in crowdfunding.</p>
+                    <p>Finally, users can settle their outcome tokens for rewards. If, for example, outcome one wins, holders of outcome one tokens will receive payouts proportionate to the pool’s outcome token one reserves. Tokens from the losing outcome are discarded and burned. In cases where there 
+
 
                 </div>
 

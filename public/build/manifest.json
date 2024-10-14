@@ -1,0 +1,25 @@
+{
+  "node_modules/@atomrigslab/aptos-wallet-adapter/dist/index-DRmafxZ_.mjs": {
+    "file": "assets/index-DRmafxZ_-DdsreTJb.js",
+    "name": "index-DRmafxZ_",
+    "src": "node_modules/@atomrigslab/aptos-wallet-adapter/dist/index-DRmafxZ_.mjs",
+    "isDynamicEntry": true
+  },
+  "resources/assets/js/app.tsx": {
+    "file": "assets/app-C8xeNp2Z.js",
+    "name": "app",
+    "src": "resources/assets/js/app.tsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/@atomrigslab/aptos-wallet-adapter/dist/index-DRmafxZ_.mjs"
+    ],
+    "css": [
+      "assets/app-CyYwdoxb.css"
+    ]
+  },
+  "resources/assets/sass/app.scss": {
+    "file": "assets/app-CyYwdoxb.css",
+    "src": "resources/assets/sass/app.scss",
+    "isEntry": true
+  }
+}

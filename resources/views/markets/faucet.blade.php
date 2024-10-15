@@ -9,7 +9,7 @@
             <div class="flex flex-col w-full sm:w-40p sm:px-6 py-2 ">
 
                 <div class="flex justify-between">
-                    <span id="count" class="text-gray-500 text-sm">Aptos Testnet</span>
+                    <span id="count" class="text-teal-600 text-sm">Aptos Testnet</span>
                 </div>
 
                 <h2 id="name" class="inline name text-2xl font-semibold mt-2">Token Faucet</h2>

@@ -71,31 +71,3 @@
 
 
 @endsection
-
-
-@section('scripts')
-
-    {{-- <script src="https://aptos-blockbard.s3.ap-southeast-2.amazonaws.com/assets/js/scrollToFixed.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            function handleScrollToFixed() {
-                // check screen width and apply scrollToFixed for desktop screens (greater than 768px)
-                if (window.innerWidth > 768) {
-                    $('#about_image').scrollToFixed();
-                } else {
-                    // remove scrollToFixed if the screen width is below 768px
-                    $('#about_image').trigger('detach.ScrollToFixed');
-                }
-            }
-
-            handleScrollToFixed();
-
-            // on window resize
-            $(window).resize(function() {
-                handleScrollToFixed();
-            });
-        });
-    </script> --}}
-
-@endsection

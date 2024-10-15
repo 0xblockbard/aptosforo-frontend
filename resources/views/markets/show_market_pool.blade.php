@@ -86,9 +86,7 @@
 
                         <div class="flex flex-row mt-2 justify-between border-b pt-2 mb-4 border-gray-200"> 
                             <div class="flex space-x-2 text-sm">
-                                {{-- <div class="deposit font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Deposit</div>
-                                <div class="withdraw hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Withdraw</div> --}}
-                                <div class="pool_action font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Action</div>
+                                <div class="pool_action font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Pool</div>
                                 <div class="redeem hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Redeem</div>
                             </div>
                             <div class="flex text-sm">
@@ -108,10 +106,10 @@
 
                             <div id="selected_action_type" class="hidden selected_type" data-selected-action-type="deposit"></div>
                             
-                            <button class="buy_outcome_one_button px-2 py-4  mr-1 bg-emerald-50 text-emerald-500 hover:bg-emerald-500 hover:text-emerald-900">
+                            <button class="deposit_button px-2 py-4  mr-1 bg-emerald-50 text-emerald-500 hover:bg-emerald-500 hover:text-emerald-900">
                                 <span class="deposit">Deposit</span>
                             </button>
-                            <button class="buy_outcome_two_button px-2 py-4 ml-1 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-rose-900">
+                            <button class="withdraw_button px-2 py-4 ml-1 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-rose-900">
                                 <span class="withdraw">Withdraw</span>
                             </button>
                         </div>

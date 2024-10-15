@@ -234,69 +234,11 @@ if (CreateMarketSubmitButtonExists) {
     </WalletProvider>
   );
 }
-
-
-// helpers
-
-// Function to convert duration string to seconds
-// function convertDurationToSeconds(duration) {
-//     // Extract the number part and convert it to an integer
-//     let days = parseInt(duration);
-
-//     // Convert days to seconds (1 day = 86400 seconds)
-//     let seconds = days * 86400;
-
-//     return seconds;
-// }
-
-
-// function MarketList() {
-//     const { markets, isLoading, error } = useGetAllMarkets();
-  
-//     if (isLoading) return <div>Loading...</div>;
-//     if (error) return <div>Error fetching markets</div>;
-  
-//     return (
-//       <div className="w-full mx-auto grid gap-6 lg:grid-cols-3 ">
-//         {markets?.map((market, index) => (
-          
-//           <div key={index} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
-//             {/* Market Image and Status */}
-//             <div className="flex-shrink-0 relative">
-//               <a href={`/markets/${index}`}>
-//                 <img
-//                   className="lazy h-72 w-full object-cover hover:opacity-70"
-//                   src={market.image_url ? market.image_url : 'https://via.placeholder.com/800'}
-//                   alt={market.description}
-//                 />
-//               </a>
-//               </div>
-  
-//             {/* Campaign Details */}
-//             <div className="flex-1 bg-white pt-3 p-6 flex flex-col justify-between dark:bg-gray-800">
-//               <div className="flex-1">
-//                 {/* <p className="text-xl font-semibold showcase_text_gray_900">{market.description}</p>
-//                 <p className="mt-3 text-base text-gray-500 dark:text-gray-300 text-justify"> */}
-//                 <p className="mt-3 text-base text-gray-500 dark:text-gray-300 text-justify">
-//                     {market.description.length > 300
-//                         ? `${market.description.slice(0, 300)}...`
-//                         : market.description}
-//                   </p>
-//                 {/* </p> */}
-//               </div>
-//             </div>
-
-//           </div>
-//         ))}
-//       </div>
-//     );
-//   }
   
 
 function MarketList() {
+  
   const { markets, isLoading, error } = useGetAllMarkets();
-
-  // if (isLoading) return <div className="ml-6">Loading markets...</div>;
 
   if (isLoading) return <MarketListPlaceholder />;
 
@@ -358,7 +300,7 @@ function MarketList() {
 
           <div className="my-3 ml-1 px-4 flex justify-between items-center">
             <div className="text-xs text-gray-500">
-              <span className="mr-1">$X</span>
+              <span className="mr-1">{((market.outcome_token_one_reserve + market.outcome_token_two_reserve) / 10**6).toFixed(2)}</span>
               <span>Vol.</span>
             </div>
           </div>

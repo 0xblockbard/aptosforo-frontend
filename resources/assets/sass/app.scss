@@ -117,13 +117,13 @@
 
 }
 
-.buy_outcome_one_button{
+.buy_outcome_one_button, .deposit_button{
   
   @apply w-full text-sm rounded-md font-semibold transition duration-300 ;
   
 }
 
-.buy_outcome_two_button{
+.buy_outcome_two_button, .withdraw_button{
   
   @apply w-full text-sm rounded-md font-semibold transition duration-300;
 }

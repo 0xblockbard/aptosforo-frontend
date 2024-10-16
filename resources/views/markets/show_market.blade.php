@@ -13,7 +13,7 @@
                 <div class="flex flex-row">
                     <img id="featured_image" src="https://res.cloudinary.com/blockbard/image/upload/c_scale,w_auto,q_auto,f_auto,fl_lossy/v1728122909/placeholder-2.png" class="featured_image rounded-md w-24 h-24">
                     <div class="flex flex-col ml-6 sm:pt-3">
-                        <span class="text-sm mb-2">Category</span>
+                        <span class="text-sm mb-2">Prediction Market</span>
                         <h2 id="description" class="inline name text-2xl font-semibold mt-2">Loading market...</h2>
                     </div>
                 </div>

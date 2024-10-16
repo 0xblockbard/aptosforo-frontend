@@ -82,12 +82,12 @@
 
                 <div id="market_actions_card" class="market_actions_card rounded-md shadow-lg border border-gray-300 px-6 pt-4 pb-6" data-market-id="{{ $id }}">  
 
-                    <div class="market_pool_actions_form">
+                    <div class="market_actions_form">
 
                         <div class="flex flex-row mt-2 justify-between border-b pt-2 mb-4 border-gray-200"> 
                             <div class="flex space-x-2 text-sm">
                                 <div class="pool_action font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Pool</div>
-                                <div class="redeem hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Redeem</div>
+                                {{-- <div class="redeem hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Redeem</div> --}}
                             </div>
                             <div class="flex text-sm">
                                 <div class="amm uppercase  mr-4 pb-4">
@@ -104,7 +104,7 @@
                         <h3 class="text-md font-medium font-roboto mt-4 mb-2">Action</h3>
                         <div class="flex justify-between">
 
-                            <div id="selected_action_type" class="hidden selected_type" data-selected-action-type="deposit"></div>
+                            <div id="selected_action_type" class="hidden selected_action_type" data-selected-action-type="deposit"></div>
                             
                             <button class="deposit_button px-2 py-4  mr-1 bg-emerald-50 text-emerald-500 hover:bg-emerald-500 hover:text-emerald-900">
                                 <span class="deposit">Deposit</span>
@@ -115,10 +115,25 @@
                         </div>
 
                         <div class="flex flex-col mt-4">
-                            <div id="selected_pool_action_type" class="hidden selected_pool_action_type" data-selected-action-type="deposit"></div>
                             <h3 class="text-md font-medium font-roboto mt-2 mb-1">Amount</h3>
                             <input id="liquidity_amount" autocomplete="off" class="liquidity_amount appearance-none shadow-sm focus:ring-teal-500 focus:border-teal-500 mt-1 block w-full px-4 py-3 sm:text-sm border text-center border-gray-300 rounded-md" type="text" placeholder="0">
                             <div id="market_pool_submit_button"></div> 
+                        </div>
+
+                        <div class="flex flex-col mt-4 pt-4 border-t border-gray-200">
+                            <h3 class="text-sm font-semibold mt-2 mb-2">Liquidity Pool Reserves</h3>
+                            <div class="flex flex-row justify-between text-sm">
+                                <div class="flex">Outcome Token One Reserves:</div>
+                                <div class="flex outcome_token_one_reserves">XXX</div>
+                            </div>
+                            <div class="flex flex-row justify-between text-sm">
+                                <div class="flex">Outcome Token Two Reserves:</div>
+                                <div class="flex outcome_token_two_reserves">XXX</div>
+                            </div>
+                            <div class="flex flex-row justify-between text-sm mt-3">
+                                <div class="flex">Total Reserves:</div>
+                                <div class="flex total_reserves">XXX</div>
+                            </div>
                         </div>
                     
                     </div>

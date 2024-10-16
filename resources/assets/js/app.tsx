@@ -9,6 +9,7 @@ import { aptosClient } from "./components/utils/aptosClient";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Aptos, AptosConfig, MoveVector, Network } from "@aptos-labs/ts-sdk";
 import { useState, useEffect } from "react";
+import { request, gql } from 'graphql-request';
 
 // components
 import { MarketListPlaceholder } from "./components/placeholders/market_list_placeholder"
@@ -38,6 +39,7 @@ import { getAdminProperties } from "./components/view-functions/get_admin_proper
 import { getAssertionId } from "./components/view-functions/get_assertion_id";
 import { getAssertion } from "./components/view-functions/get_assertion";
 import { getMarket } from "./components/view-functions/get_market";
+import { getAssetBalance } from "./components/view-functions/get_asset_balance";
 import { getPool } from "./components/view-functions/get_pool";
 import { getNextMarketId } from "./components/view-functions/get_next_market_id";
 import { getNextAssertionId } from "./components/view-functions/get_next_assertion_id";
@@ -87,6 +89,20 @@ var transactionSuccessMessage = `
             </div>
             <div class="ml-3">
                 <p class="sucess_message text-sm font-medium text-green-800">Transaction successful.</p>
+            </div>
+        </div>
+    </div>`;
+
+  var marketPoolSuccessMessage = `
+    <div class="success_notification rounded-md bg-green-50 p-4 mt-2 mb-1 border border-green-600">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="sucess_message text-sm font-medium text-green-800">Market pool action successful.</p>
             </div>
         </div>
     </div>`;
@@ -188,6 +204,7 @@ function CreateMarketSubmitButton() {
         let image_url: string   = create_market_form.find('.image_url').val() as string;
         let reward              = (create_market_form.find('.reward').val() as number) * 10**decimals;
         let bond                = (create_market_form.find('.bond').val() as number) * 10**decimals;
+        let categories: string  = create_market_form.find('.categories').val() as string;
 
         const response = await signAndSubmitTransaction(
           initializeMarket({
@@ -196,7 +213,8 @@ function CreateMarketSubmitButton() {
             description,
             image_url,
             reward,
-            bond
+            bond,
+            categories
           })
         );
   
@@ -300,7 +318,7 @@ function MarketList() {
 
           <div className="my-3 ml-1 px-4 flex justify-between items-center">
             <div className="text-xs text-gray-500">
-              <span className="mr-1">{((market.outcome_token_one_reserve + market.outcome_token_two_reserve) / 10**6).toFixed(2)}</span>
+              <span className="mr-1">{((market.outcome_token_one_reserve + market.outcome_token_two_reserve) / 10**8).toFixed(2)}</span>
               <span>Vol.</span>
             </div>
           </div>
@@ -398,6 +416,8 @@ function renderMarketInfo(marketData: {
     outcome_two: string;
     outcome_token_one_reserve: number;
     outcome_token_two_reserve: number;
+    outcome_token_one_metadata: string;
+    outcome_token_two_metadata: string;
 }) {
 
     // const campaign_id = (window as any).campaignId;
@@ -417,9 +437,133 @@ function renderMarketInfo(marketData: {
     const prices = calculatePrices(marketData.outcome_token_one_reserve, marketData.outcome_token_two_reserve);
 
     $('.single_market .outcome_one_price').text('$' + prices.outcomeOnePrice.toFixed(2));
-    $('.single_market .outcome_two_price').text('$' + prices.outcomeTwoPrice.toFixed(2)); 
+    $('.single_market .outcome_two_price').text('$' + prices.outcomeTwoPrice.toFixed(2));
+    
+    let show_outcome_token_one_reserves = (marketData.outcome_token_one_reserve / 10**8).toFixed(0);
+    let show_outcome_token_two_reserves = (marketData.outcome_token_two_reserve / 10**8).toFixed(0);
+    $('.single_market .outcome_token_one_reserves').text(show_outcome_token_one_reserves);
+    $('.single_market .outcome_token_two_reserves').text(show_outcome_token_two_reserves);
+    $('.single_market .total_reserves').text(Number(show_outcome_token_one_reserves) + Number(show_outcome_token_two_reserves));
 
 }
+
+
+// const GRAPHQL_ENDPOINT = 'https://api.testnet.aptoslabs.com/v1/graphql';
+// const GET_FUNGIBLE_ASSET_BALANCES = gql`
+//   query GetFungibleAssetBalances($address: String, $tokenOneMetadata: String, $tokenTwoMetadata: String) {
+//     tokenOneBalance: current_fungible_asset_balances(
+//       where: { owner_address: { _eq: $address }, asset_type: { _eq: $tokenOneMetadata } }
+//     ) {
+//       amount
+//     }
+//     tokenTwoBalance: current_fungible_asset_balances(
+//       where: { owner_address: { _eq: $address }, asset_type: { _eq: $tokenTwoMetadata } }
+//     ) {
+//       amount
+//     }
+//   }
+// `;
+
+
+
+function RenderUserOutcomeTokenBalance() {
+  const { account } = useWallet();
+  const accountAddress = account?.address;
+  const [balances, setBalances] = useState({ tokenOne: 0, tokenTwo: 0 });
+
+  useEffect(() => {
+    const fetchBalances = async () => {
+      if (!accountAddress) return;
+
+      // Get market id and fetch market data
+      const marketIdElement = document.getElementById('marketId');
+      const market_id = Number(marketIdElement.getAttribute('data-market-id'));
+      const marketData = await fetchMarketData(market_id);
+
+        // console.log("marketData.outcome_token_one_metadata.inner: ", marketData.outcome_token_one_metadata.inner);
+        // console.log("marketData.outcome_token_two_metadata.inner: ", marketData.outcome_token_two_metadata.inner);
+
+        // try {
+        //   // Pass both accountAddress and metadata as a single object
+        //   const tokenOneBalance = await getAssetBalance({
+        //     accountAddress,
+        //     metadata: marketData.outcome_token_one_metadata.inner,
+        //   });
+  
+        //   const tokenTwoBalance = await getAssetBalance({
+        //     accountAddress,
+        //     metadata: marketData.outcome_token_two_metadata.inner,
+        //   });
+  
+        //   console.log("tokenOneBalance:", tokenOneBalance);
+        //   console.log("tokenTwoBalance:", tokenTwoBalance);
+  
+        //   // Update state with the balances
+        //   setBalances({
+        //     tokenOne: tokenOneBalance,
+        //     tokenTwo: tokenTwoBalance,
+        //   });
+        // } catch (error) {
+        //   console.error('Error fetching balances:', error);
+        // }
+
+        // let tokenOneBalance = await getAssetBalance(accountAddress, marketData.outcome_token_one_metadata.inner);
+        // console.log("tokenOneBalance: ", tokenOneBalance);
+
+      // try {
+      //   // Use metadata addresses for the query
+      //   // const data = await request(GRAPHQL_ENDPOINT, GET_FUNGIBLE_ASSET_BALANCES, {
+      //   //   address: accountAddress,
+      //   //   tokenOneMetadata: marketData.outcome_token_one_metadata.inner,
+      //   //   tokenTwoMetadata: marketData.outcome_token_two_metadata.inner,
+      //   // });
+
+      //   // Extract balances from the GraphQL response
+      //   const tokenOneBalance = data.tokenOneBalance[0]?.amount || 0;
+      //   const tokenTwoBalance = data.tokenTwoBalance[0]?.amount || 0;
+
+      //   console.log("data: " , data);
+
+      //   // Update state with the balances
+      //   setBalances({
+      //     tokenOne: tokenOneBalance,
+      //     tokenTwo: tokenTwoBalance,
+      //   });
+      // } catch (error) {
+      //   console.error('Error fetching balances:', error);
+      // }
+
+    };
+
+    fetchBalances();
+  }, [accountAddress]);
+
+  return (
+    <div className="flex flex-col mt-4 pt-4 border-t border-gray-200">
+      <h3 className="text-sm font-semibold mt-2 mb-2">Your Outcome Balance</h3>
+      <div className="flex flex-row justify-between text-sm">
+        <div className="flex">Token One Balance:</div>
+        <div className="flex token_one_balance">{balances.tokenOne}</div>
+      </div>
+      <div className="flex flex-row justify-between text-sm">
+        <div className="flex">Token Two Balance:</div>
+        <div className="flex token_two_balance">{balances.tokenTwo}</div>
+      </div>
+    </div>
+  );
+}
+
+
+// const showUserOutcomeTokenBalancesDiv = document.getElementById('user_outcome_token_balances_container');
+// if (showUserOutcomeTokenBalancesDiv) {
+//   const root = ReactDOM.createRoot(showUserOutcomeTokenBalancesDiv);
+//   root.render(
+//     <WalletProvider>
+//       <RenderUserOutcomeTokenBalance />
+//     </WalletProvider>
+//   );
+// }
+
 
 
 function calculatePrices(outcome_token_one_reserve, outcome_token_two_reserve) {
@@ -454,7 +598,7 @@ function calculatePrices(outcome_token_one_reserve, outcome_token_two_reserve) {
 
 $(document).ready(function () {
     
-    const currentPath       = window.location.pathname;
+    const currentPath     = window.location.pathname;
     const marketIdElement = document.getElementById('marketId');
     
     if (marketIdElement) {
@@ -475,6 +619,8 @@ $(document).ready(function () {
         }
     };
 
+    // ------------------------------------
+
     // Select the buttons
     const buyOutcomeOneButton = document.querySelector('.buy_outcome_one_button');
     const buyOutcomeTwoButton = document.querySelector('.buy_outcome_two_button');
@@ -490,6 +636,8 @@ $(document).ready(function () {
 
     selectOutcome('one'); // default
 
+    // ------------------------------------
+
     // Select Buy/Sell
     const buyButton  = document.querySelector('.buy');
     const sellButton = document.querySelector('.sell');
@@ -504,6 +652,7 @@ $(document).ready(function () {
 
     selectBuyOrSell('buy'); // default
 
+    // ------------------------------------
 });
 
 
@@ -547,6 +696,7 @@ function selectOutcome(outcome) {
 }
 
 
+
 // Function to select an outcome
 function selectBuyOrSell(selectedType) {
 
@@ -587,89 +737,6 @@ const displaySuccessNotification = () => {
 
 function BuyOrSellOutcomeTokenButton() {
   const { account, signAndSubmitTransaction } = useWallet();
-
-  // const processBuyOrSellOutcomeToken = async () => {
-  //   try {
-      
-  //     let aptosConfig = new AptosConfig({ network: NETWORK });
-  //     let aptos       = new Aptos(aptosConfig);
-
-  //     const marketIdElement = document.getElementById('market_actions_card');
-  //     let market_id = Number(marketIdElement.getAttribute('data-market-id'));
-      
-  //     var market_pool_form = $('.market_actions_form');
-  //     let amount: number = market_pool_form.find('.amount').val() as number;
-
-  //     const selectedTypeIdElement = document.getElementById('selected_type');
-  //     let selectedType = String(selectedTypeIdElement.getAttribute('data-selected-type'));
-
-  //     const selectedOutcomeIdElement = document.getElementById('selected_outcome');
-  //     let outcomeTokenStr = String(selectedOutcomeIdElement.getAttribute('data-selected-outcome'));
-  //     let outcome_token   = stringToVectorU8(outcomeTokenStr);
-
-  //     if(selectedType == "buy"){
-  //       console.log('process buy');
-  //       const response = await signAndSubmitTransaction(
-  //         buyOutcomeTokens({
-  //           market_id,
-  //           outcome_token,
-  //           amount,
-  //         })
-  //       );
-
-  //       // Wait for transaction to complete
-  //       console.log('executing buy tokens');
-  //       await aptos.waitForTransaction({ transactionHash: response.hash });
-
-  //       // Fetch updated market data
-  //       const updatedMarketData = await fetchMarketData(market_id);
-
-  //       // Re-render market information with updated data
-  //       renderMarketInfo(updatedMarketData);
-
-  //       $('.single_market .amount').val('');
-
-  //       $('.notification_container').find('.general_notification').remove();
-  //       $(transactionSuccessMessage).appendTo('.notification_container').fadeIn(2000);
-
-  //       setTimeout(() => {
-  //           $('.notification_container .success_notification').fadeOut(1000);
-  //       }, 5000);
-
-  //     } else if (selectedType == "sell"){
-  //       console.log('process sell');
-  //       const response = await signAndSubmitTransaction(
-  //         sellOutcomeTokens({
-  //           market_id,
-  //           outcome_token,
-  //           amount,
-  //         })
-  //       );
-
-  //       // Wait for transaction to complete
-  //       console.log('executing sell tokens');
-  //       await aptos.waitForTransaction({ transactionHash: response.hash });
-
-  //       // Fetch updated market data
-  //       const updatedMarketData = await fetchMarketData(market_id);
-
-  //       // Re-render market information with updated data
-  //       renderMarketInfo(updatedMarketData);
-
-  //       $('.single_market .amount').val('');
-
-  //       $('.notification_container').find('.general_notification').remove();
-  //       $(transactionSuccessMessage).appendTo('.notification_container').fadeIn(2000);
-
-  //       setTimeout(() => {
-  //           $('.notification_container .success_notification').fadeOut(1000);
-  //       }, 5000);
-  //     };      
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const processBuyOrSellOutcomeToken = async () => {
     try {
@@ -753,14 +820,16 @@ function MarketPoolActionButton() {
       let aptosConfig = new AptosConfig({ network: NETWORK });
       let aptos       = new Aptos(aptosConfig);
 
-      const marketIdElement = document.getElementById('market_pool_actions_card');
+      const marketIdElement = document.getElementById('market_actions_card');
       let market_id = Number(marketIdElement.getAttribute('data-market-id'));
       
       var market_pool_form = $('.market_actions_form');
-      let amount: number = market_pool_form.find('.liquidity_amount').val() as number;
+      const amount = Number(market_pool_form.find('.liquidity_amount').val());
 
-      const selectedPoolActionTypeIdElement = document.getElementById('selected_pool_action_type');
-      let selectedActionType = String(selectedPoolActionTypeIdElement.getAttribute('data-selected-action-type'));
+      console.log("amount: ", amount);
+
+      const selectedActionTypeIdElement = document.getElementById('selected_action_type');
+      let selectedActionType = String(selectedActionTypeIdElement.getAttribute('data-selected-action-type'));
 
       console.log('processing');
       console.log('selectedType: ', selectedActionType);
@@ -815,14 +884,12 @@ function MarketPoolActionButton() {
         $('.single_market .liquidity_amount').val('');
 
         $('.notification_container').find('.general_notification').remove();
-        $(transactionSuccessMessage).appendTo('.notification_container').fadeIn(2000);
+        $(marketPoolSuccessMessage).appendTo('.notification_container').fadeIn(2000);
 
         setTimeout(() => {
             $('.notification_container .success_notification').fadeOut(1000);
         }, 5000);
       };      
-
-      
 
     } catch (error) {
       console.log(error);
@@ -858,3 +925,93 @@ if (showMarketPoolActionButtonDiv) {
 function stringToVectorU8(str) {
   return Array.from(new TextEncoder().encode(str));
 }
+
+
+
+
+$(document).ready(function () {
+    
+  const currentPath     = window.location.pathname;
+  const marketIdElement = document.getElementById('marketId');
+  
+  if (marketIdElement) {
+      let market_id = Number(marketIdElement.getAttribute('data-market-id'));
+      console.log('market_id:', market_id);
+
+      if (isNaN(market_id)) {
+          console.error('Invalid market ID');
+          return;
+      }
+
+      if (currentPath.includes("/markets")) {
+          fetchMarketData(market_id)
+              .then((marketData) => {
+                  console.log('marketData: ', marketData);
+                  renderMarketInfo(marketData);
+              });
+      }
+  };
+
+  // ------------------------------------
+
+  // Select the buttons
+  const depositButton  = document.querySelector('.deposit_button');
+  const withdrawButton = document.querySelector('.withdraw_button');
+
+  console.log('depositButton: ', depositButton);
+
+  // Add event listeners to the buttons
+  depositButton.addEventListener('click', () => {
+    selectPoolAction('deposit');
+  });
+
+  withdrawButton.addEventListener('click', () => {
+    selectPoolAction('withdraw');
+  });
+
+  // selectPoolAction(''); // default
+
+  // ------------------------------------
+});
+
+// Function to select a pool action
+function selectPoolAction(actionType) {
+
+  console.log('pool action clicked: ', actionType);
+
+  // Select the buttons
+  const depositButton  = document.querySelector('.deposit_button');
+  const withdrawButton = document.querySelector('.withdraw_button');
+
+  // Select the hidden element that stores the selected action type
+  const selectedActionTypeElement = document.getElementById('selected_action_type');
+  
+  // Update the data-selected-action-type attribute
+  selectedActionTypeElement.setAttribute('data-selected-action-type', actionType);
+
+  if (actionType === 'deposit') {
+      // Activate deposit Button (use hover state classes)
+      depositButton.classList.add('bg-emerald-500', 'text-emerald-900');
+      depositButton.classList.remove('bg-emerald-50', 'text-emerald-500');
+
+      // Deactivate withdraw Button (reset to default state)
+      withdrawButton.classList.add('bg-rose-50', 'text-rose-500');
+      withdrawButton.classList.remove('bg-rose-500', 'text-rose-900');
+  } else if (actionType === 'withdraw') {
+      // Activate withdraw Button (use hover state classes)
+      withdrawButton.classList.add('bg-rose-500', 'text-rose-900');
+      withdrawButton.classList.remove('bg-rose-50', 'text-rose-500');
+
+      // Deactivate deposit Button (reset to default state)
+      depositButton.classList.add('bg-emerald-50', 'text-emerald-500');
+      depositButton.classList.remove('bg-emerald-500', 'text-emerald-900');
+  } else {
+      // If no outcome is selected, reset both buttons to default state
+      depositButton.classList.add('bg-emerald-50', 'text-emerald-500');
+      depositButton.classList.remove('bg-emerald-500', 'text-emerald-900');
+
+      withdrawButton.classList.add('bg-rose-50', 'text-rose-500');
+      withdrawButton.classList.remove('bg-rose-500', 'text-rose-900');
+  }
+}
+

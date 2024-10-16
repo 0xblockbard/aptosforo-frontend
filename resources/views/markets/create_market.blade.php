@@ -67,6 +67,13 @@
                         <input id="bond" autocomplete="off" class="bond appearance-none shadow-sm focus:ring-teal-500 focus:border-teal-500 mt-1 block w-full px-2 py-2 sm:text-sm border border-gray-300 rounded-md" type="text" placeholder="Outcome Two">
                     </div>
 
+                    <div class="w-full px-3 mb-6 md:mb-0 mt-6">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="categories">
+                            Categories
+                        </label>
+                        <input id="categories" autocomplete="off" class="categories appearance-none shadow-sm focus:ring-teal-500 focus:border-teal-500 mt-1 block w-full px-2 py-2 sm:text-sm border border-gray-300 rounded-md" type="text" placeholder="crypto,bitcoin,ethereum">
+                    </div>
+
                 </div>
 
             </div>

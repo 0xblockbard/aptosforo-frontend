@@ -80,38 +80,24 @@
                             <input id="amount" autocomplete="off" class="amount appearance-none shadow-sm focus:ring-teal-500 focus:border-teal-500 mt-1 block w-full px-4 py-3 sm:text-sm border text-center border-gray-300 rounded-md" type="text" placeholder="0">
                             <div id="market_submit_button"></div> 
                         </div>
-                    
+
+                        <div id="user_outcome_token_balances_container"></div>
+
+                        {{-- <div class="flex flex-col mt-4 pt-4 border-t border-gray-200">
+                            <h3 class="text-sm font-semibold mt-2 mb-2">Your Outcome Balance</h3>
+                            <div class="flex flex-row justify-between text-sm">
+                                <div class="flex">Token One Balance:</div>
+                                <div class="flex token_one_balance">XXX</div>
+                            </div>
+                            <div class="flex flex-row justify-between text-sm">
+                                <div class="flex">Token Two Balance:</div>
+                                <div class="flex token_two_balance">XXX</div>
+                            </div>
+                        </div>
+                     --}}
                     </div>
 
                 </div>
-
-                {{-- <div id="market_pool_actions_card" class="market_pool_actions_card rounded-md shadow-lg border border-gray-300 mt-8 px-6 pt-4 pb-6" data-market-id="{{ $id }}">  
-
-                    <div class="market_pool_actions_form">
-
-                        <div class="flex flex-row mt-2 justify-between border-b pt-2 mb-4 border-gray-200"> 
-                            <div class="flex space-x-4 text-sm">
-                                <div class="deposit font-semibold hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Deposit</div>
-                                <div class="withdraw hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Withdraw</div>
-                                <div class="redeem hover:cursor-pointer pb-4 transition duration-150 ease-in-out">Redeem</div>
-                            </div>
-                            <div class="flex text-sm">
-                                <div class="amm text-teal-600 font-semibold mr-4 pb-4">Liquidity</div>
-                            </div>
-                        </div>
-
-                        @include('partials.flash_messages')
-
-                        <div class="flex flex-col mt-4">
-                            <div id="selected_pool_action_type" class="hidden selected_pool_action_type" data-selected-action-type="deposit"></div>
-                            <h3 class="text-md font-medium font-roboto mt-2 mb-1">Amount</h3>
-                            <input id="liquidity_amount" autocomplete="off" class="liquidity_amount appearance-none shadow-sm focus:ring-teal-500 focus:border-teal-500 mt-1 block w-full px-4 py-3 sm:text-sm border text-center border-gray-300 rounded-md" type="text" placeholder="0">
-                            <div id="market_pool_submit_button"></div> 
-                        </div>
-                    
-                    </div>
-
-                </div> --}}
 
             </div>
 
